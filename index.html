@@ -479,7 +479,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const GAME='Tank Top';  /* PER GAME: the game's name, used in the hero and the tab title */
 const GBASE=40;  /* win-screen base coin reward, matches level_win_coin */
-const PID='tank.top';  /* PER GAME: product ID prefix for every IAP pack, e.g. 'sushi.sort' gives sushi.sort.starter_pack */
+const PID='aquarium';  /* PER GAME: product ID prefix for every IAP pack, e.g. 'sushi.sort' gives sushi.sort.starter_pack */
 
 /* crown-cap outline: a real bottle cap has 21 teeth */
 (function(){
@@ -1631,6 +1631,9 @@ function view(l){
       ent(t('Clamshell Surprise!','Clamshell Surprise!'),ul([
         t(`Renamed Limited Time Reward to Clamshell Surprise! everywhere, including the 7.3 title. The reward pack name is now Clamshell Surprise! (was Gold Brick Package!).`,`Đổi tên Quà giới hạn thời gian (Limited Time Reward) thành Clamshell Surprise! ở mọi chỗ, kể cả tiêu đề mục 7.3. Tên gói quà giờ là Clamshell Surprise! (trước là Gold Brick Package!).`),
         t(`Pack ID: none, since it is claimed with a rewarded ad, not bought.`,`Mã gói: không có, vì quà nhận bằng quảng cáo có thưởng, không phải mua.`)
+      ]))+
+      ent(t('Pack IDs','Mã gói'),ul([
+        t(`Every IAP pack ID now starts with <code>aquarium.</code> instead of <code>tank.top.</code> (e.g. <code>aquarium.starter_pack</code>).`,`Mọi mã gói IAP giờ bắt đầu bằng <code>aquarium.</code> thay cho <code>tank.top.</code> (ví dụ <code>aquarium.starter_pack</code>).`)
       ])))+
     day(t('26 Oct 2026','26/10/2026'),
       ent(t('Popup logic and sections 6–7','Logic popup và mục 6–7'),ul([
