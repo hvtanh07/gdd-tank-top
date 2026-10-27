@@ -520,7 +520,7 @@ const SECTIONS=[
   {id:'live-ops',n:'7',c:6,en:'Live ops',vi:'Tính năng Live Ops',subs:[
     {id:'popup-list',n:'7.1',en:'Popup list',vi:'Danh sách popup'},
     {id:'popup-priority',n:'7.2',en:'Popup priority',vi:'Thứ tự ưu tiên popup'},
-    {id:'limited-time-reward',n:'7.3',en:'Limited Time Reward',vi:'Quà giới hạn thời gian'},
+    {id:'limited-time-reward',n:'7.3',en:'Clamshell Surprise!',vi:'Clamshell Surprise!'},
     {id:'skip-retry',n:'7.4',en:'Skip Level & Retry with Booster',vi:'Bỏ qua màn & Chơi lại kèm công cụ'}]},
   {id:'change-note',n:'8',c:7,en:'Change note',vi:'Ghi chú thay đổi'}
 ];
@@ -1433,7 +1433,7 @@ function view(l){
     rc(t('Unlock popups — offer unlock level','Popup mở khóa — màn mở ưu đãi'),[
       ['starter_pack_unlock_level',t('Starter Pack (IAP) — level from which the offer popup can show','Gói Khởi đầu (IAP) — màn bắt đầu có thể hiện popup ưu đãi'),'12',t('level','màn')],
       ['remove_ads_unlock_level',t('Remove Ads (IAP) — level from which the offer popup can show','Gỡ quảng cáo (IAP) — màn bắt đầu có thể hiện popup ưu đãi'),'15',t('level','màn')],
-      ['garage_gift_unlock_level',t('Limited Time Reward / Garage Gift (rewarded ad) — level from which the gift popup can show','Quà giới hạn thời gian / Garage Gift (quảng cáo thưởng) — màn bắt đầu có thể hiện popup quà'),'10',t('level','màn')]
+      ['garage_gift_unlock_level',t('Clamshell Surprise! (rewarded ad) — level from which the gift popup can show','Clamshell Surprise! (quảng cáo thưởng) — màn bắt đầu có thể hiện popup quà'),'10',t('level','màn')]
     ])+
     rc(t('Live ops','Live Ops'),[
       ['skip_level_max_per_day',t('Skip Level — max skips per day (ad or coins). The count resets each new day.','Bỏ qua màn — số lần bỏ qua tối đa mỗi ngày (bằng quảng cáo hoặc xu). Số lần được tính lại mỗi ngày mới.'),'3',t('count','lần')],
@@ -1488,7 +1488,7 @@ function view(l){
       t(`Every 4 interstitials (2nd–4th), every 8 (5th +)`,`Mỗi 4 quảng cáo xen kẽ (lần 2–4), mỗi 8 (từ lần 5)`),
       t(`2nd–4th: 20 min cooldown or new session. 5th +: 2 a day. Priority 2. Stops once bought.`,`Lần 2–4: chờ 20 phút hoặc phiên mới. Từ lần 5: 2 lần/ngày. Ưu tiên 2. Dừng khi đã mua.`),see('remove-ads','6.4')],
     [t('Rewarded-ad and coin popups','Popup quảng cáo có thưởng và xu')],
-    [nm('Limited Time Reward','Quà giới hạn thời gian'),t('Rewarded ad','Quảng cáo có thưởng'),lvl(10),
+    ['Clamshell Surprise!',t('Rewarded ad','Quảng cáo có thưởng'),lvl(10),
       t(`1st: Level Complete of level 10`,`Lần đầu: Level Complete màn 10`),
       t(`1st Level Complete or new game session after the 4 h cooldown`,`Level Complete hoặc phiên chơi mới đầu tiên sau cooldown 4 giờ`),
       t(`Once per cycle. 10 min to claim. Priority 3.`,`1 lần mỗi chu kỳ. 10 phút để nhận. Ưu tiên 3.`),see('limited-time-reward','7.3')],
@@ -1517,16 +1517,16 @@ function view(l){
       :`<tr><th scope="row">${r[0]}</th>${r.slice(1).map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 
   B['popup-priority']=
-    `<p class="sec-intro">${t(`Priority between the 3 offer popups: Starter Pack, Remove Ads and Limited Time Reward. When several trigger at the same time, only 1 popup is shown.`,
-      `Thứ tự ưu tiên giữa 3 popup ưu đãi: Starter Pack, Remove Ads và Limited Time Reward. Khi nhiều popup cùng kích hoạt, chỉ hiện 1 popup.`)}</p>`+
+    `<p class="sec-intro">${t(`Priority between the 3 offer popups: Starter Pack, Remove Ads and Clamshell Surprise!. When several trigger at the same time, only 1 popup is shown.`,
+      `Thứ tự ưu tiên giữa 3 popup ưu đãi: Starter Pack, Remove Ads và Clamshell Surprise!. Khi nhiều popup cùng kích hoạt, chỉ hiện 1 popup.`)}</p>`+
     table(t('Popup priority','Thứ tự ưu tiên popup'),[t('Triggered together on','Cùng kích hoạt ở'),t('Priority','Thứ tự ưu tiên'),t('Shown','Hiện')],[
-      [t('Level complete screen','Màn hình hoàn thành màn'),'Starter Pack > Remove Ads > Limited Time Reward',t('Only 1 popup','Chỉ 1 popup')],
-      [t('New game session','Phiên chơi mới'),'Starter Pack > Limited Time Reward',t('Only 1 popup','Chỉ 1 popup')]
+      [t('Level complete screen','Màn hình hoàn thành màn'),'Starter Pack > Remove Ads > Clamshell Surprise!',t('Only 1 popup','Chỉ 1 popup')],
+      [t('New game session','Phiên chơi mới'),'Starter Pack > Clamshell Surprise!',t('Only 1 popup','Chỉ 1 popup')]
     ],'compact')+
     table(t('When a popup is blocked','Khi popup bị chặn'),[t('Popup','Popup'),t('When blocked','Khi bị chặn')],[
       ['Starter Pack',t('Never blocked','Không bao giờ bị chặn')],
       ['Remove Ads',t('The interstitial ad counter stays at 0 and waits for the next interstitial ad to show the popup.','Bộ đếm quảng cáo xen kẽ giữ ở 0 và chờ quảng cáo xen kẽ tiếp theo để hiện popup.')],
-      ['Limited Time Reward',t('Shows on the next level win screen, and the 10 min timer starts then.','Hiện ở màn hình thắng của màn tiếp theo, và timer 10 phút bắt đầu từ lúc đó.')]
+      ['Clamshell Surprise!',t('Shows on the next level win screen, and the 10 min timer starts then.','Hiện ở màn hình thắng của màn tiếp theo, và timer 10 phút bắt đầu từ lúc đó.')]
     ],'compact');
 
   B['store']=kv([
@@ -1584,11 +1584,11 @@ function view(l){
   B['live-ops']=`<p class="sec-intro">${t(`Features that bring players back or help past hard levels, mostly for rewarded ads, plus the rules for every offer popup (7.1, 7.2).`,
     `Tính năng kéo người chơi quay lại hoặc giúp qua màn khó, phần lớn đổi bằng quảng cáo có thưởng, cùng quy tắc cho mọi popup ưu đãi (7.1, 7.2).`)}</p>`;
   B['limited-time-reward']=
-    sys(nm('Limited Time Reward','Quà giới hạn thời gian'),
+    sys('Clamshell Surprise!',
       lead(t(`A free gift claimed with a rewarded ad. Shows once per cycle, at the 1st Level Complete or new game session after the cooldown.`,`Quà miễn phí nhận bằng quảng cáo có thưởng. Hiện 1 lần mỗi chu kỳ, ở Level Complete hoặc phiên chơi mới đầu tiên sau khi hết cooldown.`))+
-      tiles([[`200 + 1`,t('Gold + booster (“Gold Brick Package!”)','Vàng + công cụ (“Gold Brick Package!”)')],[t('10 min','10 phút'),t('Timer, from when it shows','Timer, tính từ lúc hiện')],[t('4 h','4 giờ'),t('Cooldown after the timer','Cooldown sau khi hết timer')],[t('Level 10','Màn 10'),t('Unlocks','Mở khóa')]])+
+      tiles([[`200 + 1`,t('Gold + booster (“Clamshell Surprise!”)','Vàng + công cụ (“Clamshell Surprise!”)')],[t('10 min','10 phút'),t('Timer, from when it shows','Timer, tính từ lúc hiện')],[t('4 h','4 giờ'),t('Cooldown after the timer','Cooldown sau khi hết timer')],[t('Level 10','Màn 10'),t('Unlocks','Mở khóa')]])+
       panel(t('Popup appear logic','Logic hiện popup'),
-        table(t('Limited Time Reward cycle','Chu kỳ Quà giới hạn thời gian'),[t('State','Trạng thái'),t('Player sees','Người chơi thấy'),t('Next','Tiếp theo')],[
+        table(t('Clamshell Surprise! cycle','Chu kỳ Clamshell Surprise!'),[t('State','Trạng thái'),t('Player sees','Người chơi thấy'),t('Next','Tiếp theo')],[
           [t('Cooldown','Cooldown'),t('Nothing. 4 h runs, also offline.','Không có gì. Đếm 4 giờ, kể cả khi offline.'),t('Ends → Ready','Hết giờ → Chờ hiện')],
           [t('Ready','Chờ hiện'),t('Nothing yet','Chưa có gì'),t('Next Level Complete or new game session, not blocked → Live','Level Complete hoặc phiên chơi mới tiếp theo, không bị chặn → Đang hiện')],
           [t('Live','Đang hiện'),t('Popup, then HUD icon with the 10 min timer','Popup, sau đó biểu tượng HUD kèm timer 10 phút'),t('Claim → reward · 10 min over → offer gone','Nhận → có quà · Hết 10 phút → offer biến mất')],
@@ -1602,6 +1602,7 @@ function view(l){
           t(`Ad fails: no reward, timer keeps running.`,`Quảng cáo lỗi: không có quà, timer vẫn chạy.`)
         ]))+
       kv([
+        [t('Pack','Gói'),t(`Name: Clamshell Surprise! · ID: none (rewarded ad, not an IAP pack).`,`Tên: Clamshell Surprise! · Mã gói: không có (quảng cáo có thưởng, không phải gói IAP).`)],
         [t('Popup priority','Ưu tiên popup'),t(`Lowest. Level Complete: Starter Pack or Remove Ads can block it. New game session: only Starter Pack can block it. Blocked: shows on the next level win screen, and the 10 min timer starts then (see 7.2).`,`Thấp nhất. Level Complete: có thể bị Starter Pack hoặc Remove Ads chặn. Phiên chơi mới: chỉ bị Starter Pack chặn. Bị chặn: hiện ở màn hình thắng của màn tiếp theo, timer 10 phút bắt đầu từ lúc đó (xem 7.2).`)],
         [t('Store & Icon','Cửa hàng & Biểu tượng'),ul([
           t(`<b>Store:</b> not sold in the store.`,`<b>Cửa hàng:</b> không bán trong cửa hàng.`),
@@ -1626,12 +1627,17 @@ function view(l){
   /* Add one day() block per day, newest first, with one ent per area changed */
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
+    day(t('27 Oct 2026','27/10/2026'),
+      ent(t('Clamshell Surprise!','Clamshell Surprise!'),ul([
+        t(`Renamed Limited Time Reward to Clamshell Surprise! everywhere, including the 7.3 title. The reward pack name is now Clamshell Surprise! (was Gold Brick Package!).`,`Đổi tên Quà giới hạn thời gian (Limited Time Reward) thành Clamshell Surprise! ở mọi chỗ, kể cả tiêu đề mục 7.3. Tên gói quà giờ là Clamshell Surprise! (trước là Gold Brick Package!).`),
+        t(`Pack ID: none, since it is claimed with a rewarded ad, not bought.`,`Mã gói: không có, vì quà nhận bằng quảng cáo có thưởng, không phải mua.`)
+      ])))+
     day(t('26 Oct 2026','26/10/2026'),
       ent(t('Popup logic and sections 6–7','Logic popup và mục 6–7'),ul([
-        t(`Followed the new template. Popup list and Popup priority moved to Live ops (7.1, 7.2). Renumbered: Store 6.2, Starter Pack 6.3, Remove Ads 6.4, Limited Time Reward 7.3, Skip Level & Retry with Booster 7.4.`,`Theo template mới. Danh sách popup và Thứ tự ưu tiên popup chuyển sang Live ops (7.1, 7.2). Đánh số lại: Cửa hàng 6.2, Gói Khởi đầu 6.3, Gỡ quảng cáo 6.4, Quà giới hạn thời gian 7.3, Bỏ qua màn & Chơi lại kèm công cụ 7.4.`),
-        t(`Offer popups show one at a time. Level Complete: Starter Pack > Remove Ads > Limited Time Reward. New game session: Starter Pack > Limited Time Reward. A blocked popup waits for its next chance.`,`Mỗi lần chỉ hiện 1 popup ưu đãi. Level Complete: Gói Khởi đầu > Gỡ quảng cáo > Quà giới hạn thời gian. Phiên chơi mới: Gói Khởi đầu > Quà giới hạn thời gian. Popup bị chặn sẽ chờ lần sau.`),
-        t(`Starter Pack first shows at Level Complete of level 12. Remove Ads first shows at the 1st interstitial after level 15. Limited Time Reward shows once per cycle, and its 10 min timer starts when the player sees it.`,`Gói Khởi đầu hiện lần đầu ở Level Complete màn 12. Gỡ quảng cáo hiện lần đầu ở quảng cáo xen kẽ đầu tiên sau màn 15. Quà giới hạn thời gian hiện 1 lần mỗi chu kỳ, timer 10 phút bắt đầu khi người chơi thấy popup.`),
-        t(`Starter Pack, Remove Ads and Limited Time Reward now use the same layout: popup appear logic, popup priority, Store & Icon, restore type.`,`Gói Khởi đầu, Gỡ quảng cáo và Quà giới hạn thời gian dùng chung một bố cục: logic hiện popup, ưu tiên popup, cửa hàng & biểu tượng, kiểu khôi phục.`),
+        t(`Followed the new template. Popup list and Popup priority moved to Live ops (7.1, 7.2). Renumbered: Store 6.2, Starter Pack 6.3, Remove Ads 6.4, Clamshell Surprise! 7.3, Skip Level & Retry with Booster 7.4.`,`Theo template mới. Danh sách popup và Thứ tự ưu tiên popup chuyển sang Live ops (7.1, 7.2). Đánh số lại: Cửa hàng 6.2, Gói Khởi đầu 6.3, Gỡ quảng cáo 6.4, Clamshell Surprise! 7.3, Bỏ qua màn & Chơi lại kèm công cụ 7.4.`),
+        t(`Offer popups show one at a time. Level Complete: Starter Pack > Remove Ads > Clamshell Surprise!. New game session: Starter Pack > Clamshell Surprise!. A blocked popup waits for its next chance.`,`Mỗi lần chỉ hiện 1 popup ưu đãi. Level Complete: Gói Khởi đầu > Gỡ quảng cáo > Clamshell Surprise!. Phiên chơi mới: Gói Khởi đầu > Clamshell Surprise!. Popup bị chặn sẽ chờ lần sau.`),
+        t(`Starter Pack first shows at Level Complete of level 12. Remove Ads first shows at the 1st interstitial after level 15. Clamshell Surprise! shows once per cycle, and its 10 min timer starts when the player sees it.`,`Gói Khởi đầu hiện lần đầu ở Level Complete màn 12. Gỡ quảng cáo hiện lần đầu ở quảng cáo xen kẽ đầu tiên sau màn 15. Clamshell Surprise! hiện 1 lần mỗi chu kỳ, timer 10 phút bắt đầu khi người chơi thấy popup.`),
+        t(`Starter Pack, Remove Ads and Clamshell Surprise! now use the same layout: popup appear logic, popup priority, Store & Icon, restore type.`,`Gói Khởi đầu, Gỡ quảng cáo và Clamshell Surprise! dùng chung một bố cục: logic hiện popup, ưu tiên popup, cửa hàng & biểu tượng, kiểu khôi phục.`),
         t(`Store also opens when coins run short (boosters, Revive, heart refill). A failed purchase shows a notice popup. Skip Level is available from the start; Skip and Retry are off for the first 3 levels.`,`Cửa hàng cũng mở khi thiếu xu (công cụ, Hồi sinh, nạp tim). Mua lỗi thì hiện popup thông báo. Bỏ qua màn có ngay từ đầu; Bỏ qua và Chơi lại không áp dụng cho 3 màn đầu.`)
       ])))+
     day(t('25 Oct 2026','25/10/2026'),
