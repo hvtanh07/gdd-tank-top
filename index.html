@@ -1028,7 +1028,8 @@ function view(l){
         `Các hàng chưa xuất hiện trên màn hình thì cá không bơi vào. Hộp trong ô đỗ chỉ tìm ô cùng màu trong các hàng đang hiện.`),
       t(`The level goes on until every row in the config is cleared (win, see 1.1).`,
         `Màn chơi tiếp tục cho tới khi mọi hàng trong config đều được dọn (thắng, xem mục 1.1).`),
-      t(`How many rows are on screen at once: ${tbd}.`,`Số hàng hiện trên màn hình cùng lúc: ${tbd}.`)
+      t(`The visible board is a square: 10×10 or 15×15 cells (10 or 15 rows on screen, 10 or 15 cells per row).`,`Vùng bàn chơi nhìn thấy là hình vuông: 10×10 hoặc 15×15 ô (10 hoặc 15 hàng trên màn hình, mỗi hàng 10 hoặc 15 ô).`),
+      t(`Each level picks one of the two sizes in its config. The width stays the same for the whole level. When the strip has more rows than the board size, the extra rows wait above the screen.`,`Mỗi màn chọn một trong hai kích thước trong config. Chiều ngang giữ nguyên suốt màn. Khi dải ô có nhiều hàng hơn kích thước bàn, các hàng dư nằm chờ phía trên màn hình.`)
     ]))+
     ent(nm('Boxes','Hộp'),ul([
       t(`Boxes wait in queues below the slots. The player can only tap the box at the front of a queue (except with ${P.bo1}).`,
@@ -1643,6 +1644,9 @@ function view(l){
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
     day(t('1 Nov 2026','01/11/2026'),
+      ent(t('Board size','Kích thước bàn chơi'),ul([
+        t(`Board flow in 1.2: the visible board is a square of 10×10 or 15×15 cells, set per level in the config.`,`Dải ô ở 1.2: vùng bàn chơi nhìn thấy là hình vuông 10×10 hoặc 15×15 ô, đặt theo từng màn trong config.`)
+      ]))+
       ent(t('Hidden cells and board flow','Ô ẩn và dải ô'),ul([
         t(`Hidden cells: groups are numbered in the level config (1, 2, 3 …). When one cell in a group shows its color, the whole group does.`,`Ô ẩn: nhóm được đánh số trong config màn (1, 2, 3 …). Khi 1 ô trong nhóm hiện màu, cả nhóm cùng hiện màu.`),
         t(`New Board flow entry in 1.2: rows go from the bottom up and clear one by one, rows above move down, rows not on screen take no fish, the level ends when every row is cleared.`,`Thêm mục Dải ô ở 1.2: các hàng đi từ dưới lên và được dọn từng hàng, các hàng phía trên dịch xuống, hàng chưa xuất hiện thì cá không vào, màn kết thúc khi mọi hàng đều được dọn.`)
