@@ -1015,8 +1015,20 @@ function view(l){
       t(`A cell takes one fish of its color. A cell that holds a fish is <b>sealed</b>.`,
         `Mỗi ô nhận một con cá cùng màu. Ô đã có cá gọi là ô <b>đã lấp</b> (sealed).`),
       t(`When every cell in a row is sealed, the row clears.`,`Khi mọi ô trên một hàng đều đã lấp, hàng đó được dọn.`),
-      t(`Part of the board can sit outside the visible area. When a cell becomes exposed (open to fish), and the path fish follow to reach it: ${tbd}.`,
-        `Một phần bàn chơi có thể nằm ngoài vùng nhìn thấy. Khi nào một ô được mở ra (exposed, nhận được cá), và đường cá bay theo để tới ô: ${tbd}.`)
+      t(`Fish only go to cells in rows that are on screen (see Board flow below). The path fish follow to reach a cell: ${tbd}.`,
+        `Cá chỉ vào các ô thuộc hàng đang hiện trên màn hình (xem Dải ô bên dưới). Đường cá bay theo để tới ô: ${tbd}.`)
+    ]))+
+    ent(nm('Board flow','Dải ô'),ul([
+      t(`A level is one long strip of rows, read from the bottom up. The level config can hold more rows than fit on screen.`,
+        `Mỗi màn là một dải ô dài gồm nhiều hàng, tính từ dưới lên. Config màn có thể có nhiều hàng hơn số hàng hiện được trên màn hình.`),
+      t(`The player clears the rows one by one.`,`Người chơi dọn từng hàng một.`),
+      t(`Each time a row clears, every row above it moves down. Rows that were not on screen yet move into view from the top.`,
+        `Mỗi khi một hàng được dọn, mọi hàng phía trên dịch xuống. Các hàng chưa xuất hiện sẽ lần lượt đi vào màn hình từ phía trên.`),
+      t(`Rows that are not on screen yet never take fish. A box in a slot only looks for matching cells in the rows on screen.`,
+        `Các hàng chưa xuất hiện trên màn hình thì cá không bơi vào. Hộp trong ô đỗ chỉ tìm ô cùng màu trong các hàng đang hiện.`),
+      t(`The level goes on until every row in the config is cleared (win, see 1.1).`,
+        `Màn chơi tiếp tục cho tới khi mọi hàng trong config đều được dọn (thắng, xem mục 1.1).`),
+      t(`How many rows are on screen at once: ${tbd}.`,`Số hàng hiện trên màn hình cùng lúc: ${tbd}.`)
     ]))+
     ent(nm('Boxes','Hộp'),ul([
       t(`Boxes wait in queues below the slots. The player can only tap the box at the front of a queue (except with ${P.bo1}).`,
@@ -1221,8 +1233,11 @@ function view(l){
   B['elements-mechanics']=
     ent(N.el1,ul([
       t(`Hidden cells are cells that hide their true color.`,`Ô ẩn là các ô màu che giấu màu thật của mình.`),
-      t(`Hidden cells come in groups. All the cells in a group are connected together.`,`Ô ẩn được đặt theo nhóm. Mọi ô trong một nhóm đều nối liền với nhau.`),
-      t(`The colors of the whole group show only when at least one cell in the group is connected to a sealed cell.`,`Màu của cả nhóm chỉ hiện ra khi có ít nhất một ô trong nhóm nối với một ô đã lấp.`),
+      t(`Each hidden cell has a group number in the level config: 1, 2, 3 …`,`Mỗi ô ẩn được đánh số nhóm trong config màn: 1, 2, 3 …`),
+      t(`Groups come from the config, not from which cells touch. Two hidden cells side by side with different numbers are in different groups.`,`Nhóm được lấy theo config, không theo việc các ô có nằm cạnh nhau hay không. Hai ô ẩn nằm cạnh nhau nhưng khác số là hai nhóm khác nhau.`),
+      t(`A hidden cell shows its color when it is connected to a sealed cell.`,`Một ô ẩn hiện màu khi nó nối với một ô đã lấp.`),
+      t(`When one cell in a group shows its color, every cell with the same group number shows its color at the same time. Example: one cell of group 2 shows its color, so all the cells of group 2 show theirs.`,`Khi 1 ô trong nhóm hiện màu, mọi ô cùng số nhóm cũng hiện màu cùng lúc. Ví dụ: 1 ô của nhóm 2 hiện màu thì tất cả ô của nhóm 2 đều hiện màu.`),
+      t(`Other groups stay hidden until one of their own cells shows its color.`,`Các nhóm khác vẫn ẩn cho tới khi một ô của chính nhóm đó hiện màu.`),
       t(`Once their colors show, the cells follow the normal cell rules.`,`Khi đã hiện màu, các ô này hoạt động như ô màu bình thường.`)
     ]),unlock(7),demo('hiddenCell'))+
     ent(N.el2,ul([
@@ -1627,6 +1642,11 @@ function view(l){
   /* Add one day() block per day, newest first, with one ent per area changed */
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
+    day(t('1 Nov 2026','01/11/2026'),
+      ent(t('Hidden cells and board flow','Ô ẩn và dải ô'),ul([
+        t(`Hidden cells: groups are numbered in the level config (1, 2, 3 …). When one cell in a group shows its color, the whole group does.`,`Ô ẩn: nhóm được đánh số trong config màn (1, 2, 3 …). Khi 1 ô trong nhóm hiện màu, cả nhóm cùng hiện màu.`),
+        t(`New Board flow entry in 1.2: rows go from the bottom up and clear one by one, rows above move down, rows not on screen take no fish, the level ends when every row is cleared.`,`Thêm mục Dải ô ở 1.2: các hàng đi từ dưới lên và được dọn từng hàng, các hàng phía trên dịch xuống, hàng chưa xuất hiện thì cá không vào, màn kết thúc khi mọi hàng đều được dọn.`)
+      ])))+
     day(t('27 Oct 2026','27/10/2026'),
       ent(t('Clamshell Surprise!','Clamshell Surprise!'),ul([
         t(`Renamed Limited Time Reward to Clamshell Surprise! everywhere, including the 7.3 title. The reward pack name is now Clamshell Surprise! (was Gold Brick Package!).`,`Đổi tên Quà giới hạn thời gian (Limited Time Reward) thành Clamshell Surprise! ở mọi chỗ, kể cả tiêu đề mục 7.3. Tên gói quà giờ là Clamshell Surprise! (trước là Gold Brick Package!).`),
