@@ -1362,28 +1362,120 @@ function view(l){
 
   /* ===== 3. Object set & animation ===== */
   /* PER GAME */
-  B['game-concept']=`<p>${t('Not in the source GDD yet:','Tài liệu gốc chưa có:')} ${tbd}</p>`;
+  const prop=t('Proposal','Đề xuất');
+  B['game-concept']=
+    `<p class="sec-intro">${t(`Items tagged Proposal are not in the source GDD yet. They follow the gameplay in section 1 and wait for art and design to confirm.`,
+      `Các mục có nhãn Đề xuất chưa có trong tài liệu gốc. Nội dung dựa theo lối chơi ở mục 1, chờ art và design chốt.`)}</p>`+
+    ent(t('Theme','Chủ đề'),params([
+      [t('Setting','Bối cảnh'),t(`A fish tank. The board is the tank wall, the cells are little homes in it, and the fish swim from their boxes to the homes of their color.`,
+        `Một bể cá. Bàn chơi là vách bể, các ô màu là những chỗ ở nhỏ trong vách, cá bơi từ hộp về chỗ ở cùng màu.`)],
+      [t('Why','Lý do'),t(`Matches what the GDD already uses: fish, the Clamshell Surprise! reward and the <code>aquarium.</code> pack IDs.`,
+        `Khớp với những gì GDD đã có: cá, quà Clamshell Surprise! và mã gói <code>aquarium.</code>.`)],
+      [t('Style','Phong cách'),t(`Casual and bright. Round shapes, soft water light, clear and saturated colors so each color is easy to tell apart.`,
+        `Casual, tươi sáng. Hình khối bo tròn, ánh nước dịu, màu rõ và đậm để dễ phân biệt từng màu.`)]
+    ]),prop)+
+    ent(t('Screen layout','Bố cục màn hình'),ul([
+      t(`Top: the board, a square of 10×10 or 15×15 cells (see 1.2).`,`Trên: bàn chơi, hình vuông 10×10 hoặc 15×15 ô (xem mục 1.2).`),
+      t(`Middle: the row of parking slots (4 by default, up to 6 with rewarded ads).`,`Giữa: hàng ô đỗ (mặc định 4, tối đa 6 khi xem quảng cáo có thưởng).`),
+      t(`Bottom: the queues of boxes.`,`Dưới: các hàng chờ hộp.`)
+    ]));
 
   const colors=[t('Red','Đỏ'),t('Blue','Xanh dương'),t('Green','Xanh lá'),t('Yellow','Vàng'),t('Pink','Hồng'),t('Orange','Cam'),t('Purple','Tím'),t('Cyan','Xanh ngọc')];
   const anim=n=>t('Animation '+n,'Chuyển động '+n);
+  const an=t('Animation','Chuyển động'),look=t('Look','Hình ảnh');
   B['core-game-object-concept']=
     ent(t('Color list','Bảng màu'),
-      `<p>${t('Cells, boxes and fish share one color list. The list below is the template palette. The colors this game uses:','Ô màu, hộp và cá dùng chung một bảng màu. Bảng dưới đây là bảng màu của template. Các màu game này dùng:')} ${tbd}</p>
+      `<p>${t('Cells, boxes and fish share one color list. The list below is the template palette. The colors this game uses:','Ô màu, hộp và cá dùng chung một bảng màu. Bảng dưới đây là bảng màu của template. Các màu game này dùng:')}
+       ${t(`8 colors, from the level data: Red, Blue, Green, Yellow, Pink, Orange, Brown, Cyan. Brown takes the place of Purple (7) in the template palette.`,
+           `8 màu, theo level data: Đỏ, Xanh dương, Xanh lá, Vàng, Hồng, Cam, Nâu, Xanh ngọc. Nâu thay cho Tím (7) trong bảng màu template.`)}</p>
        <ol class="colors">${colors.map((c,i)=>`<li>${cap(i+1,i+1)}<span><span class="sr">${i+1}: </span>${c}</span></li>`).join('')}</ol>`)+
-    ent(nm('Cells','Ô màu'),params([[anim(1),tbd]]))+
-    ent(nm('Boxes','Hộp'),params([[anim(1),tbd]]))+
-    ent(nm('Fish','Cá'),params([[anim(1),tbd]]));
+    ent(nm('Cells','Ô màu'),params([
+      [look,t(`A small home in the tank wall, tinted with its color. Each state looks different: closed (dim, cannot take fish), exposed (lit, can take fish), sealed (a fish sits inside).`,
+        `Một chỗ ở nhỏ trên vách bể, mang màu của ô. Mỗi trạng thái có hình riêng: đóng (closed, mờ, chưa nhận cá), mở (exposed, sáng lên, nhận được cá), đã lấp (sealed, có cá nằm bên trong).`)],
+      [anim(1),t(`Closed → exposed: the cell lights up and pops a little, so the player sees it can take a fish now.`,
+        `Đóng → mở: ô sáng lên và nảy nhẹ, cho người chơi thấy ô đã nhận được cá.`)],
+      [anim(2),t(`A fish arrives: the cell squashes a little as the fish settles in, then turns sealed.`,
+        `Cá tới: ô nhún nhẹ khi cá vào chỗ, rồi chuyển sang đã lấp.`)],
+      [anim(3),t(`Row clears: every cell in the row flashes at once, then the row bursts into bubbles and is gone.`,
+        `Dọn hàng: mọi ô trên hàng cùng lóe sáng, rồi cả hàng vỡ thành bong bóng và biến mất.`)],
+      [anim(4),t(`Board flow: after a row clears, the rows above slide down smoothly. New rows slide in from the top edge.`,
+        `Dải ô: sau khi dọn hàng, các hàng phía trên trượt xuống mượt. Hàng mới trượt vào từ mép trên.`)]
+    ]),prop)+
+    ent(nm('Boxes','Hộp'),params([
+      [look,t(`A box in its color with the fish count on the front. Fish peek out from the top.`,
+        `Hộp mang màu của nó, số cá hiện ở mặt trước. Cá ló đầu ra phía trên hộp.`)],
+      [anim(1),t(`Tap the front box: the box jumps up and flies to a free slot. The rest of the queue steps forward one place.`,
+        `Chạm hộp đầu hàng: hộp bật lên và bay tới một ô đỗ trống. Các hộp còn lại trong hàng tiến lên một chỗ.`)],
+      [anim(2),t(`Tap a box that cannot move (not at the front, or no free slot): the box shakes a little and stays.`,
+        `Chạm hộp không đi được (không ở đầu hàng, hoặc hết ô đỗ trống): hộp lắc nhẹ rồi đứng yên.`)],
+      [anim(3),t(`Each time a fish leaves, the number on the box counts down by 1.`,`Mỗi lần một con cá rời hộp, con số trên hộp giảm 1.`)],
+      [anim(4),t(`Box is empty: depends on the rule in 1.2, still ${tbd}. Suggestion: the lid closes and the box fades out, freeing the slot.`,
+        `Hộp hết cá: phụ thuộc luật ở mục 1.2, hiện còn ${tbd}. Gợi ý: hộp đóng nắp rồi mờ dần, trả lại ô đỗ.`)]
+    ]),prop)+
+    ent(nm('Parking slots','Ô đỗ'),params([
+      [look,t(`A row of small platforms between the board and the queues. An empty slot shows a soft outline.`,
+        `Một hàng bệ nhỏ nằm giữa bàn chơi và hàng chờ. Ô đỗ trống hiện đường viền nhạt.`)],
+      [anim(1),t(`A box lands: the slot glows briefly under it.`,`Hộp đáp xuống: ô đỗ phát sáng nhẹ bên dưới.`)],
+      [anim(2),t(`RV slot (5th and 6th): shows a lock with an ad icon. After the ad, the lock opens and the slot turns into a normal empty slot.`,
+        `Ô đỗ RV (ô thứ 5 và 6): hiện ổ khóa kèm biểu tượng quảng cáo. Xem xong quảng cáo, khóa mở và ô thành ô đỗ trống bình thường.`)],
+      [anim(3),t(`All slots full and no match: the slots flash red once before the lose flow (see 1.1).`,
+        `Đầy ô đỗ và không còn ô cùng màu: các ô đỗ nháy đỏ một lần trước khi vào luồng thua (xem mục 1.1).`)]
+    ]),prop)+
+    ent(nm('Fish','Cá'),params([
+      [look,t(`A small round fish in the box color. Same shape for every color, so color is the only thing that tells them apart.`,
+        `Một con cá tròn nhỏ mang màu của hộp. Mọi màu dùng chung một hình dáng, chỉ khác màu.`)],
+      [anim(1),t(`Fish leave the box one after another, not all at once, so the player can follow each one.`,
+        `Cá rời hộp lần lượt từng con, không ra cùng lúc, để người chơi theo dõi được từng con.`)],
+      [anim(2),t(`On the way, the fish swims (tail wags, small wave up and down), leaving a short bubble trail. The path it takes: ${tbd} (see 1.2).`,
+        `Trên đường đi, cá bơi (quẫy đuôi, nhấp nhô nhẹ), để lại vệt bong bóng ngắn. Đường cá đi: ${tbd} (xem mục 1.2).`)],
+      [anim(3),t(`The fish slips into the cell and turns to face out. The cell then plays its own Animation 2.`,
+        `Cá chui vào ô và quay đầu ra ngoài. Sau đó ô chạy Chuyển động 2 của ô.`)]
+    ]),prop);
 
-  const an=t('Animation','Chuyển động'),look=t('Look','Hình ảnh');
   B['element-object-concept']=
-    ent(N.el1,params([[look,tbd],[an,tbd]]))+
-    ent(N.el2,params([[look,tbd],[an,tbd]]))+
-    ent(N.el3,params([[look,tbd],[an,tbd]]));
+    ent(N.el1,params([
+      [look,t(`A cell covered by a grey shell with a "?" on it. The true color does not show. Whether the group number shows to the player: ${tbd}.`,
+        `Một ô bị phủ lớp vỏ xám có dấu "?". Không thấy màu thật. Có hiện số nhóm cho người chơi hay không: ${tbd}.`)],
+      [an,t(`When the group shows its color, every cell of that group opens at the same time: the shell cracks and falls away, and the color shows. Cells of other groups do not move.`,
+        `Khi nhóm hiện màu, mọi ô cùng nhóm mở ra cùng lúc: lớp vỏ nứt rồi rơi ra, màu thật hiện ra. Các ô nhóm khác đứng yên.`)]
+    ]),prop)+
+    ent(N.el2,params([
+      [look,t(`A grey box with a "?" instead of the fish count. No fish peek out.`,
+        `Một hộp xám có dấu "?" thay cho số cá. Không có cá ló ra.`)],
+      [an,t(`When it reaches the front of its queue, the box flips over and shows its color and fish count. After that it moves like a normal box.`,
+        `Khi lên đầu hàng chờ, hộp lật một vòng và hiện màu cùng số cá. Sau đó hộp chuyển động như hộp thường.`)]
+    ]),prop)+
+    ent(N.el3,params([
+      [look,t(`A cell with a padlock (or a bubble cage) over it, and the countdown number on top.`,
+        `Một ô có ổ khóa (hoặc lồng bong bóng) phủ lên, con số đếm ngược ở phía trên.`)],
+      [anim(1),t(`Each sealed cell: the number bumps and drops by 1. This also runs for locked cells not on screen yet, with no visual until they come into view.`,
+        `Mỗi ô được lấp: con số nảy lên và giảm 1. Ô khóa chưa vào màn hình vẫn đếm, chỉ không có hình cho tới khi vào màn hình.`)],
+      [anim(2),t(`Countdown reaches 0: the lock shakes and breaks open, then the cell follows the normal cell animations.`,
+        `Con số về 0: ổ khóa rung rồi bật mở, sau đó ô chạy chuyển động như ô màu bình thường.`)],
+      [anim(3),t(`${P.bo3} picks a locked cell: the lock breaks at once, with no countdown.`,
+        `${P.bo3} chọn trúng ô khóa: ổ khóa vỡ ngay, không chờ đếm ngược.`)]
+    ]),prop);
 
   B['booster-object-concept']=
-    ent(N.bo1,params([[an,tbd]]))+
-    ent(N.bo2,params([[an,tbd]]))+
-    ent(N.bo3,params([[an,tbd]]));
+    ent(N.bo1,params([
+      [look,t(`Booster icon: a hand pointing down.`,`Biểu tượng: bàn tay chỉ xuống.`)],
+      [anim(1),t(`On select: the camera slides down to show more boxes below, and every box that can be picked gets a soft glow.`,
+        `Khi chọn: camera trượt xuống để thấy thêm hộp bên dưới, mọi hộp chọn được phát sáng nhẹ.`)],
+      [anim(2),t(`The player taps a box: the hand picks it out of the queue and carries it to a free slot. The queue closes the gap. The camera slides back.`,
+        `Người chơi chạm vào hộp: bàn tay nhấc hộp ra khỏi hàng và mang tới ô đỗ trống. Hàng chờ dồn lại chỗ trống. Camera trượt về.`)]
+    ]),prop)+
+    ent(N.bo2,params([
+      [look,t(`Booster icon: two curved arrows in a circle.`,`Biểu tượng: hai mũi tên cong thành vòng tròn.`)],
+      [an,t(`A water swirl passes over the queues. The boxes lift a little, swap places, and land in their new spots. Boxes of the 4 picked colors land at the front first.`,
+        `Một xoáy nước lướt qua các hàng chờ. Các hộp nhấc lên nhẹ, đổi chỗ rồi đáp xuống vị trí mới. Hộp thuộc 4 màu được chọn đáp xuống đầu hàng trước.`)]
+    ]),prop)+
+    ent(N.bo3,params([
+      [look,t(`Booster icon: a net (or a burst of bubbles).`,`Biểu tượng: cái vợt (hoặc chùm bong bóng).`)],
+      [anim(1),t(`On select: the boxes in the slots glow so the player knows which ones can be picked.`,
+        `Khi chọn: các hộp trong ô đỗ phát sáng để người chơi biết hộp nào chọn được.`)],
+      [anim(2),t(`The player taps a box: all its fish shoot out together and fly in a straight line to their cells, faster than normal. The box pops into bubbles and the slot is free.`,
+        `Người chơi chạm vào hộp: toàn bộ cá phóng ra cùng lúc và bay thẳng tới các ô, nhanh hơn bình thường. Hộp vỡ thành bong bóng, ô đỗ được trả lại.`)]
+    ]),prop);
 
   /* ===== 4. SFX & haptics ===== */
   /* FIXED: the UI rows are the same in every project. PER GAME: replace the core, element and booster rows.
@@ -1643,6 +1735,12 @@ function view(l){
   /* Add one day() block per day, newest first, with one ent per area changed */
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
+    day(t('9 Nov 2026','09/11/2026'),
+      ent(t('Object set & animation','Đối tượng & chuyển động'),ul([
+        t(`Filled section 3 from the gameplay in section 1. Every new item is tagged Proposal until art and design confirm.`,`Điền mục 3 dựa trên lối chơi ở mục 1. Mọi mục mới có nhãn Đề xuất cho tới khi art và design chốt.`),
+        t(`3.1: fish tank theme, style and screen layout. 3.2: colors from the level data (8 colors, Brown instead of Purple), look and animations for cells, boxes, parking slots and fish.`,`3.1: chủ đề bể cá, phong cách và bố cục màn hình. 3.2: màu theo level data (8 màu, Nâu thay Tím), hình ảnh và chuyển động cho ô màu, hộp, ô đỗ và cá.`),
+        t(`3.3 and 3.4: look and animations for each element and booster. Open items stay TBD: empty box rule, fish path, hidden cell group number on screen.`,`3.3 và 3.4: hình ảnh và chuyển động cho từng yếu tố và công cụ. Các điểm còn mở vẫn để Chưa chốt: hộp hết cá, đường cá đi, có hiện số nhóm ô ẩn không.`)
+      ])))+
     day(t('1 Nov 2026','01/11/2026'),
       ent(t('Board size','Kích thước bàn chơi'),ul([
         t(`Board flow in 1.2: the visible board is a square of 10×10 or 15×15 cells, set per level in the config.`,`Dải ô ở 1.2: vùng bàn chơi nhìn thấy là hình vuông 10×10 hoặc 15×15 ô, đặt theo từng màn trong config.`)
