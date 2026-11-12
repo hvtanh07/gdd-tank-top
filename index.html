@@ -1274,7 +1274,7 @@ function view(l){
       t(`While ${P.bo1} is selected, the camera moves down so the player can see more boxes below.`,
         `Khi đang chọn ${P.bo1}, camera di chuyển xuống để người chơi thấy thêm các hộp bên dưới.`),
       withEl+':'+ul([t(`${P.el2}: can also be picked with ${P.bo1}.`,`${P.el2}: cũng chọn được bằng ${P.bo1}.`)])
-    ]),unlockB(7),demo('handT'))+
+    ]),unlockB(6),demo('handT'))+
     ent(N.bo2,ul([
       t(`${P.bo2} rearranges the queues of boxes so the player has more options to pick from.`,
         `${P.bo2} sắp xếp lại các hàng hộp để người chơi có thêm lựa chọn.`),
@@ -1284,14 +1284,14 @@ function view(l){
         t(`The rest of the boxes are shuffled as normal.`,`Các hộp còn lại được xáo như bình thường.`)
       ]),
       withEl+':'+ul([t(`${P.el2}: never picked to be pushed to the front.`,`${P.el2}: không bao giờ được chọn để đẩy lên đầu hàng.`)])
-    ]),unlockB(12),demo('shuffleT'))+
+    ]),unlockB(8),demo('shuffleT'))+
     ent(N.bo3,ul([
       t(`The player picks any box in the parking slots, and it clears at once.`,
         `Người chơi chọn bất kỳ hộp nào trong các ô đỗ, và hộp được dọn ngay.`),
       t(`The fish from that box fly in a straight line to the cells of the same color, instead of following the unlocked path.`,
         `Cá trong hộp đó bay thẳng tới các ô cùng màu, thay vì đi theo đường đã mở.`),
       withEl+':'+ul([t(`${P.el3}: picked last. If one is picked, its countdown is skipped (see 1.4).`,`${P.el3}: được chọn sau cùng. Nếu chọn trúng, bỏ qua con số đếm ngược (xem mục 1.4).`)])
-    ]),unlockB(17),demo('clearT'));
+    ]),unlockB(10),demo('clearT'));
 
   /* ===== 2. FTUE & tutorial ===== */
   B['ftue--tutorial']=`<p class="sec-intro">${t(
@@ -1342,17 +1342,17 @@ function view(l){
   B['booster-tutorial']=table(t('Booster tutorial','Hướng dẫn công cụ hỗ trợ'),
     [t('Booster','Công cụ'),t('Popup text','Nội dung popup'),t('Unlocks at level','Mở ở màn'),t('Free boosters','Số lượt tặng')],
     [
-      [N.bo1,popup('Pick any container<br>in the queue!','Chọn bất kỳ hộp nào<br>trong hàng chờ!'),lvl(7),lvl(3)],
-      [N.bo2,popup('Shuffle the containers<br>in queues!','Xáo các hộp<br>trong hàng chờ!'),lvl(12),lvl(3)],
-      [N.bo3,popup('Tap the container<br>to sort it instantly!','Chạm vào hộp<br>để xếp nó ngay!'),lvl(17),lvl(3)]
+      [N.bo1,popup('Pick any container<br>in the queue!','Chọn bất kỳ hộp nào<br>trong hàng chờ!'),lvl(6),lvl(3)],
+      [N.bo2,popup('Shuffle the containers<br>in queues!','Xáo các hộp<br>trong hàng chờ!'),lvl(8),lvl(3)],
+      [N.bo3,popup('Tap the container<br>to sort it instantly!','Chạm vào hộp<br>để xếp nó ngay!'),lvl(10),lvl(3)]
     ]);
 
   /* PER GAME: every element and booster with its unlock level, sorted by level */
   const stops=[
     [1,t('First tutorial','Hướng dẫn đầu tiên'),'ftue','ftue-steps','FTUE'],
-    [7,P.bo1,'boost','booster-mechanics'],[7,P.el1,'elem','elements-mechanics'],
-    [12,P.bo2,'boost','booster-mechanics'],[12,P.el2,'elem','elements-mechanics'],
-    [17,P.bo3,'boost','booster-mechanics'],[17,P.el3,'elem','elements-mechanics']
+    [6,P.bo1,'boost','booster-mechanics'],[7,P.el1,'elem','elements-mechanics'],
+    [8,P.bo2,'boost','booster-mechanics'],[10,P.bo3,'boost','booster-mechanics'],
+    [12,P.el2,'elem','elements-mechanics'],[17,P.el3,'elem','elements-mechanics']
   ];
   B['ftue--tutorial:after']=`<div class="glance">
     <h4>${t('Unlock order at a glance','Thứ tự mở khóa theo màn')}</h4>
@@ -1735,6 +1735,11 @@ function view(l){
   /* Add one day() block per day, newest first, with one ent per area changed */
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
+    day(t('12 Nov 2026','12/11/2026'),
+      ent(t('Booster unlock levels','Màn mở công cụ hỗ trợ'),ul([
+        t(`Hand: level 7 → 6. Shuffle: level 12 → 8. Clear: level 17 → 10.`,`Bàn tay: màn 7 → 6. Xáo trộn: màn 12 → 8. Dọn hộp: màn 17 → 10.`),
+        t(`Updated in 1.5, 2.4 and the unlock order timeline. Element unlock levels stay the same.`,`Đã cập nhật ở 1.5, 2.4 và dòng thời gian mở khóa. Màn mở các yếu tố giữ nguyên.`)
+      ])))+
     day(t('10 Nov 2026','10/11/2026'),
       ent(t('Gold pack prices','Giá gói vàng'),ul([
         t(`25,000 Gold: $18.99 → $19.99. 100,000 Gold: $65.99 → $69.99.`,`25.000 vàng: $18.99 → $19.99. 100.000 vàng: $65.99 → $69.99.`)
