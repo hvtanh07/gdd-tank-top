@@ -1240,12 +1240,12 @@ function view(l){
       t(`When one cell in a group shows its color, every cell with the same group number shows its color at the same time. Example: one cell of group 2 shows its color, so all the cells of group 2 show theirs.`,`Khi 1 ô trong nhóm hiện màu, mọi ô cùng số nhóm cũng hiện màu cùng lúc. Ví dụ: 1 ô của nhóm 2 hiện màu thì tất cả ô của nhóm 2 đều hiện màu.`),
       t(`Other groups stay hidden until one of their own cells shows its color.`,`Các nhóm khác vẫn ẩn cho tới khi một ô của chính nhóm đó hiện màu.`),
       t(`Once their colors show, the cells follow the normal cell rules.`,`Khi đã hiện màu, các ô này hoạt động như ô màu bình thường.`)
-    ]),unlock(7),demo('hiddenCell'))+
+    ]),unlock(5),demo('hiddenCell'))+
     ent(N.el2,ul([
       t(`Hidden boxes are boxes that hide their true color and fish count.`,`Hộp ẩn là các hộp che giấu màu thật và số cá của mình.`),
       t(`A hidden box shows its color and fish count only when it is pushed to the front of its queue.`,`Hộp ẩn chỉ hiện màu và số cá khi được đẩy lên đầu hàng chờ.`),
       t(`Once its color shows, it can be sent to a parking slot like a normal box.`,`Khi đã hiện màu, hộp được đưa lên ô đỗ như hộp bình thường.`)
-    ]),unlock(12),demo('hiddenBox'))+
+    ]),unlock(10),demo('hiddenBox'))+
     ent(N.el3,
       `<p>${t('Overview','Tổng quan')}</p>`+ul([
         t(`Locked cells stay closed (not exposed), even when the condition that opens a normal cell is met.`,`Ô khóa không được mở ra (exposed), kể cả khi đã đủ điều kiện mở của một ô bình thường.`),
@@ -1261,7 +1261,7 @@ function view(l){
       `<p>${withEl}</p>`+ul([
         t(`${P.bo3}: picks normal cells first and saves locked cells for last.`,`${P.bo3}: ưu tiên các ô thường trước, để ô khóa lại sau cùng.`),
         t(`${P.bo3}: if it picks a locked cell, the countdown is skipped.`,`${P.bo3}: nếu chọn trúng ô khóa, bỏ qua con số đếm ngược.`)
-      ]),unlock(17),demo('lockedCell'))+
+      ]),unlock(15),demo('lockedCell'))+
     ent(nm('Fail-safe','Cơ chế chống kẹt'),ul([
       t(`Not in the source GDD yet: ${tbd}.`,`Tài liệu gốc chưa có: ${tbd}.`)
     ])).replace('<div class="ent">','<div class="ent" id="lock-fail-safe">');
@@ -1333,9 +1333,9 @@ function view(l){
   B['element-tutorial']=table(t('Element tutorial','Hướng dẫn yếu tố đặc biệt'),
     [t('Element','Yếu tố'),t('Popup text','Nội dung popup'),t('Unlocks at level','Mở ở màn')],
     [
-      [N.el1,popup('Open the boxes<br>to reveal their colors','Mở các ô<br>để lộ màu của chúng'),lvl(7)],
-      [N.el2,popup('Move the container to the top<br>to reveal its color','Đưa hộp lên đầu hàng<br>để lộ màu của nó'),lvl(12)],
-      [N.el3,popup('Send fishes to boxes<br>to unlock the locked boxes','Cho cá vào các ô<br>để mở khóa các ô bị khóa'),lvl(17)]
+      [N.el1,popup('Open the boxes<br>to reveal their colors','Mở các ô<br>để lộ màu của chúng'),lvl(5)],
+      [N.el2,popup('Move the container to the top<br>to reveal its color','Đưa hộp lên đầu hàng<br>để lộ màu của nó'),lvl(10)],
+      [N.el3,popup('Send fishes to boxes<br>to unlock the locked boxes','Cho cá vào các ô<br>để mở khóa các ô bị khóa'),lvl(15)]
     ]);
 
   /* PER GAME: one row per booster */
@@ -1350,9 +1350,9 @@ function view(l){
   /* PER GAME: every element and booster with its unlock level, sorted by level */
   const stops=[
     [1,t('First tutorial','Hướng dẫn đầu tiên'),'ftue','ftue-steps','FTUE'],
-    [6,P.bo1,'boost','booster-mechanics'],[7,P.el1,'elem','elements-mechanics'],
-    [8,P.bo2,'boost','booster-mechanics'],[10,P.bo3,'boost','booster-mechanics'],
-    [12,P.el2,'elem','elements-mechanics'],[17,P.el3,'elem','elements-mechanics']
+    [5,P.el1,'elem','elements-mechanics'],[6,P.bo1,'boost','booster-mechanics'],
+    [8,P.bo2,'boost','booster-mechanics'],[10,P.el2,'elem','elements-mechanics'],
+    [10,P.bo3,'boost','booster-mechanics'],[15,P.el3,'elem','elements-mechanics']
   ];
   B['ftue--tutorial:after']=`<div class="glance">
     <h4>${t('Unlock order at a glance','Thứ tự mở khóa theo màn')}</h4>
@@ -1735,6 +1735,11 @@ function view(l){
   /* Add one day() block per day, newest first, with one ent per area changed */
   const day=(title,body)=>`<div class="sub"><h3><span>${title}</span></h3>${body}</div>`;
   B['change-note']=`<p class="sec-intro">${t('Changes made to this GDD, newest day first.','Các thay đổi của tài liệu này, ngày mới nhất ở trên cùng.')}</p>`+
+    day(t('13 Nov 2026','13/11/2026'),
+      ent(t('Element unlock levels','Màn mở yếu tố'),ul([
+        t(`Hidden cells: level 7 → 5. Hidden boxes: level 12 → 10. Locked cells: level 17 → 15. Taken from the Feature column of the level data sheet.`,`Ô ẩn: màn 7 → 5. Hộp ẩn: màn 12 → 10. Ô khóa: màn 17 → 15. Lấy theo cột Feature trong sheet level data.`),
+        t(`Updated in 1.4, 2.3 and the unlock order timeline. Booster unlock levels stay the same.`,`Đã cập nhật ở 1.4, 2.3 và dòng thời gian mở khóa. Màn mở các công cụ giữ nguyên.`)
+      ])))+
     day(t('12 Nov 2026','12/11/2026'),
       ent(t('Booster unlock levels','Màn mở công cụ hỗ trợ'),ul([
         t(`Hand: level 7 → 6. Shuffle: level 12 → 8. Clear: level 17 → 10.`,`Bàn tay: màn 7 → 6. Xáo trộn: màn 12 → 8. Dọn hộp: màn 17 → 10.`),
